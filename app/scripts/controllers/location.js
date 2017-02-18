@@ -3,6 +3,8 @@ angular
     .controller('locationCtrl', locationCtrl)
 
    function locationCtrl($scope, $rootScope, sweetAlert, $state, $timeout) {
+      $scope.globalmarkets = [];
+
       var icon = {
         url : 'https://s30.postimg.org/vy1nk4ki9/police2.png'
       };
@@ -169,9 +171,15 @@ angular
               map:$scope.myMap,
               animation: google.maps.Animation.DROP,
               position: location
-          }); 
+          });
 
-            google.maps.event.trigger($scope.myMap,'resize');
-            $scope.myMap.setCenter(new google.maps.LatLng(data.geo.latitude, data.geo.longitude));
+          google.maps.event.trigger($scope.myMap,'resize');
+          $scope.myMap.setCenter(new google.maps.LatLng(data.geo.latitude, data.geo.longitude));
     })
+
+    $rootScope.$on("DELETE_MARKER", function(event, data){
+        if(data){
+             google.maps.event.trigger($scope.myMap,'resize');
+        }
+    }) 
 }

@@ -504,7 +504,7 @@ angular
                 return;
               };
 
-              toastr.success('Se ha generado una nueva alerta.', {timeOut: 10000});
+              toastr.success('Se ha generado una nueva alerta.', {timeOut: 2000});
               sounds.onRequest();
               api.pedido(data._id).get().success(function(res){
                   $rootScope.$emit("incoming_request", res);
@@ -516,7 +516,7 @@ angular
                 return;
               };
 
-              toastr.success('Se ha actualizado una incidencia.', {timeOut: 10000});
+              toastr.success('Se ha actualizado una incidencia.', {timeOut: 2000});
               $rootScope.$emit("request_updated", data);
         });
 

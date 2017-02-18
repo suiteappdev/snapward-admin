@@ -24,6 +24,7 @@ angular.module('shoplyApp')
                if (isConfirm) {
                     api.pedido(_record._id).delete().success(function(res){
                         $scope.records.splice($scope.records.indexOf(_record), 1);
+                        $rootScope.$emit("DELETE_MARKER", true)
                     });
                }
            })
@@ -44,8 +45,6 @@ angular.module('shoplyApp')
 
     $scope.Pending = function(){
       var _record = angular.copy(this.record);
-
-
     }
 
     $rootScope.$on("incoming_request", function(event, data){
@@ -59,6 +58,8 @@ angular.module('shoplyApp')
           return;
        }
      };
+
+     $scope.$apply();
     });
 
     $scope.showMarker = function(){
