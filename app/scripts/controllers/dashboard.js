@@ -55,6 +55,8 @@ angular.module('shoplyApp')
      for (var i = 0; i < $scope.records.length; i++) {
        if($scope.records[i]._id == request._id){
           $scope.records[i].data.incidencia = request.data.incidencia;
+          toastr.success('Se ha actualizado una incidencia.', {timeOut: 2000});
+          $scope.$apply();
           return;
        }
      };

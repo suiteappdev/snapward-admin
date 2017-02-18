@@ -516,7 +516,6 @@ angular
                 return;
               };
 
-              toastr.success('Se ha actualizado una incidencia.', {timeOut: 2000});
               $rootScope.$emit("request_updated", data);
         });
 

@@ -3,8 +3,6 @@ angular
     .controller('locationCtrl', locationCtrl)
 
    function locationCtrl($scope, $rootScope, sweetAlert, $state, $timeout) {
-      $scope.globalmarkets = [];
-
       var icon = {
         url : 'https://s30.postimg.org/vy1nk4ki9/police2.png'
       };
@@ -179,7 +177,7 @@ angular
 
     $rootScope.$on("DELETE_MARKER", function(event, data){
         if(data){
-             google.maps.event.trigger($scope.myMap,'resize');
+             $scope.myMap.setMap(null);
         }
     }) 
 }

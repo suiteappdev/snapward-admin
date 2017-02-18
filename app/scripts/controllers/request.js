@@ -39,10 +39,10 @@ angular.module('shoplyApp')
         modal.removeConfirm({closeOnConfirm : true}, 
             function(isConfirm){ 
                if (isConfirm) {
-            api.pedido(_record._id).delete().success(function(res){
-                  sweetAlert("Correcto", "Se ha eliminado este registro", "success");
-                        $scope.records.splice($scope.records.indexOf(_record), 1);
-            });
+                  api.pedido(_record._id).delete().success(function(res){
+                              sweetAlert("Correcto", "Se ha eliminado este registro", "success");
+                              $scope.records.splice($scope.records.indexOf(_record), 1);
+                  });
                }
            })
     }
