@@ -501,15 +501,25 @@ angular
 
         window.socket.on('request', function(data){
               toastr.options.onclick = function(){
-                $state.go('dashboard.detalle_pedido', {pedido:data._id});
+                return;
               };
 
-              toastr.error('Se ha generado una nueva alerta.', {timeOut: 10000});
+              toastr.success('Se ha generado una nueva alerta.', {timeOut: 10000});
               sounds.onRequest();
               api.pedido(data._id).get().success(function(res){
                   $rootScope.$emit("incoming_request", res);
               });            
         });
+
+        window.socket.on('request_updated', function(data){
+              toastr.options.onclick = function(){
+                return;
+              };
+
+              toastr.success('Se ha actualizado una incidencia.', {timeOut: 10000});
+              $rootScope.$emit("request_updated", data);
+        });
+
       $rootScope.$on('$stateChangeStart', function(event, nextRoute, toParams, fromState, fromParams){
             if($rootScope.grid)
               delete $rootScope.grid;

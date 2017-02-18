@@ -52,17 +52,14 @@ angular.module('shoplyApp')
       $scope.records.push(data);
     });
 
-    $scope.alert_types = [
-      { HOMBRE_ARMADO  : "Hombre Armado"},
-      { HOMBRE_SOSPECHOSO  : "Hombre Sospechoso"},
-      { OBJETO_SOSPECHOSO  : "Objeto Sospechoso"},
-      { HOMICIDIO  : "Homicidio"},
-      { HURTO  : "Hurto"},
-      { SECUESTRO      : "Secuestro"},      
-      { CONTIENDA_DISCUCION_PELEA  : "Contienda"},
-      { VECINO_RUIDOSO : "Vecino Ruidoso"},
-      { ALTA_PRIORIDAD : 'Alta Prioridad'}
-    ]
+    $rootScope.$on("request_updated", function(event, request){
+     for (var i = 0; i < $scope.records.length; i++) {
+       if($scope.records[i]._id == request._id){
+          $scope.records[i].data.incidencia = request.data.incidencia;
+          return;
+       }
+     };
+    });
 
     $scope.showMarker = function(){
       $rootScope.$broadcast('ADD_MARKER', this.record.data)
