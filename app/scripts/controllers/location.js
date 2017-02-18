@@ -177,7 +177,7 @@ angular
 
     $rootScope.$on("DELETE_MARKER", function(event, data){
         if(data){
-             $scope.myMap.setMap(null);
+             $state.reload();
         }
     }) 
 }
