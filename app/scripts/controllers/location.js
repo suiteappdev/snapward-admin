@@ -7,6 +7,8 @@ angular
         url : 'https://s30.postimg.org/vy1nk4ki9/police2.png'
       };
 
+      $rootScope.globalMarker = [];
+
       $scope.mapOptions = {
           zoom: 14,
           icon:icon,
@@ -158,8 +160,8 @@ angular
         });
     }
 
-    $rootScope.$on("ADD_MARKER", function(event, data){
-          var location = new google.maps.LatLng(data.geo.latitude, data.geo.longitude);
+    $rootScope.$on("ADD_MARKER", function(event, record){
+          var location = new google.maps.LatLng(record.data.geo.latitude, record.data.geo.longitude);
           var icon = {
             url : 'https://s30.postimg.org/vy1nk4ki9/police2.png'
           };
@@ -171,13 +173,21 @@ angular
               position: location
           });
 
+
+          $rootScope.globalMarker.push({id : record._id, marker : marker});
+
           google.maps.event.trigger($scope.myMap,'resize');
-          $scope.myMap.setCenter(new google.maps.LatLng(data.geo.latitude, data.geo.longitude));
+          $scope.myMap.setCenter(new google.maps.LatLng(record.data.geo.latitude, record.data.geo.longitude));
     })
 
-    $rootScope.$on("DELETE_MARKER", function(event, data){
-        if(data){
-             $state.reload();
+    $rootScope.$on("DELETE_MARKER", function(event, _id){
+        if(_id){
+            for (var i = 0; i < $rootScope.globalMarker.length; i++) {
+                if($rootScope.globalMarker[i].id == _id){
+                   $rootScope.globalMarker[i].marker.setMap(null);
+                   return;
+                } 
+            };
         }
     }) 
 }

@@ -24,7 +24,7 @@ angular.module('shoplyApp')
                if (isConfirm) {
                     api.pedido(_record._id).delete().success(function(res){
                         $scope.records.splice($scope.records.indexOf(_record), 1);
-                        $rootScope.$emit("DELETE_MARKER", true)
+                        $rootScope.$emit("DELETE_MARKER", _record._id)
                     });
                }
            })
@@ -52,20 +52,26 @@ angular.module('shoplyApp')
     });
 
     $rootScope.$on("request_updated", function(event, request){
+      var updated = false;
+
      for (var i = 0; i < $scope.records.length; i++) {
        if($scope.records[i]._id == request._id){
           $scope.records[i].data.incidencia = request.data.incidencia;
-          toastr.success('Se ha actualizado una incidencia.', {timeOut: 2000});
+           updated = true;    
           $scope.$apply();
           return;
        }
      };
 
+     if(updated){
+          toastr.success('Se ha actualizado una alerta', {timeOut: 1000});
+     }
+
      $scope.$apply();
     });
 
     $scope.showMarker = function(){
-      $rootScope.$broadcast('ADD_MARKER', this.record.data)
+      $rootScope.$broadcast('ADD_MARKER', this.record)
     }
 
   });
